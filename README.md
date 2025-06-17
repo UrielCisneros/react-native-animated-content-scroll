@@ -20,16 +20,33 @@ npm install react-native-animated-content-scroll
 
 ## Basic Usage
 ```ts 
-import { AnimatedContentScroll } from 'react-native-animated-content-scroll';
+import { AnimatedContentScroll } from './AnimatedContentScroll';
 
-function MyComponent() {
+export default function MyScreen() {
   return (
-    <AnimatedContentScroll direction="right">
-      <Text>This content slides in from the right</Text>
-    </AnimatedContentScroll>
+    <View style={{ padding: 20 }}>
+      {[...Array(5)].map((_, index) => (
+        <AnimatedContentScroll key={index} index={index}>
+          <Text style={{ fontSize: 18, marginBottom: 10 }}>Item {index + 1}</Text>
+        </AnimatedContentScroll>
+      ))}
+    </View>
   );
 }
 ```
+
+## ⚙️ Props
+
+| Prop        | Type                                  | Default      | Description                                                                |
+| ----------- | ------------------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `children`  | `ReactNode`                           | **required** | The content to animate.                                                    |
+| `index`     | `number`                              | `10`         | Controls the animation delay based on item position.                       |
+| `direction` | `"left"` `"right"` `"top"` `"bottom"` | `"bottom"`   | Direction the element animates from.                                       |
+| `distance`  | `number`                              | `50`         | How far the content moves during the animation.                            |
+| `duration`  | `number`                              | `500`        | Duration of the animation in milliseconds.                                 |
+| `margin`    | `number`                              | `5`          | Adds horizontal margin to account for movement (used for left/right only). |
+
+## 💡 Advanced Examples
 
 ## Staggered List Animation
 
@@ -71,16 +88,11 @@ function MyList() {
   </Card>
 </AnimatedContentScroll>
 ```
-## Props
+## 🛠️ How It Works
 
-| Prop        | Tipo                                  | Default       | Descripción                                                             |
-| ----------- | ------------------------------------- | ------------- | ----------------------------------------------------------------------- |
-| `children`  | `ReactNode`                           | **requerido** | El contenido que se desea animar.                                       |
-| `index`     | `number`                              | `10`          | Controla el `delay` de la animación en función del orden de aparición.  |
-| `direction` | `"left"` `"right"` `"top"` `"bottom"` | `"bottom"`    | Dirección desde donde aparece el contenido.                             |
-| `distance`  | `number`                              | `50`          | Cuánta distancia se mueve el contenido desde su posición inicial.       |
-| `duration`  | `number`                              | `500`         | Tiempo en milisegundos que dura la animación.                           |
-| `margin`    | `number`                              | `5`           | Margen aplicado en la dirección opuesta para dar espacio al movimiento. |
+- Uses React Native's `Animated.Value` to control `opacity`, `translateX`, and `translateY`.
+- `index` is multiplied by 20ms to stagger animations for multiple components.
+- Only applies margin on `left` or `right` to prevent layout issues with vertical animations.
 
 
 ## Contributing
