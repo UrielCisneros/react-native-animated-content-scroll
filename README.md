@@ -1,21 +1,33 @@
-# React Native Animated Content Scroll
+# react-native-animated-content-scroll
 
-A lightweight and smooth animated content scroll component for React Native with directional slide-in animations.
+Animated content scroll component for React Native with directional slide-in animations
 
-## ✨ Features
+## Installation
 
-- 🎯 **4 directional animations**: left, right, top, bottom
-- ⚡ **Smooth performance**: Uses native driver for 60fps animations
-- 🎨 **Customizable**: Control duration, distance, margins, and staggered delays
-- 📦 **TypeScript support**: Full type definitions included
-- 🪶 **Lightweight**: Zero dependencies (only React Native peer dependency)
-
-## 📦 Installation
-
-```bash
+```sh
 npm install react-native-animated-content-scroll
 ```
-o
-```bash
-yarn add react-native-animated-content-scroll
+
+## Usage
+
+
+```js
+import { multiply } from 'react-native-animated-content-scroll';
+
+// ...
+
+const result = await multiply(3, 7);
 ```
+
+
+## Contributing
+
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+## License
+
+MIT
+
+---
+
+Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
