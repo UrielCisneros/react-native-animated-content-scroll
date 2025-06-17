@@ -20,7 +20,7 @@ npm install react-native-animated-content-scroll
 
 ## Basic Usage
 ```ts 
-import { AnimatedContentScroll } from './AnimatedContentScroll';
+import { AnimatedContentScroll } from 'react-native-animated-content-scroll';
 
 export default function MyScreen() {
   return (
