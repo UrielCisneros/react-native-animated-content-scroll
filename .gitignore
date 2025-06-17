@@ -1,5 +1,8 @@
 # OSX
 #
+node_modules/
+lib/
+*.log
 .DS_Store
 
 # XDE

@@ -24,6 +24,22 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "verbatimModuleSyntax": true
-  }
+    "verbatimModuleSyntax": true,
+    // "target": "es2017",
+    // "lib": ["es2017"],
+    "allowSyntheticDefaultImports": true,
+    // "jsx": "react-native",
+    // "module": "commonjs",
+    "declaration": true,
+    "outDir": "./lib",
+    // "moduleResolution": "node",
+    "allowJs": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "lib"
+  ]
 }

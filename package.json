@@ -32,6 +32,7 @@
     "!**/.*"
   ],
   "scripts": {
+    "build": "tsc",
     "example": "yarn workspace react-native-animated-content-scroll-example",
     "test": "jest",
     "typecheck": "tsc",
@@ -40,10 +41,14 @@
     "prepare": "bob build",
     "release": "release-it --only-version"
   },
-  "keywords": [
+"keywords": [
     "react-native",
-    "ios",
-    "android"
+    "animation",
+    "scroll",
+    "animated",
+    "component",
+    "slide-in",
+    "directional"
   ],
   "repository": {
     "type": "git",

@@ -1,3 +1,2 @@
-export function multiply(a: number, b: number): number {
-  return a * b;
-}
+export { AnimatedContentScroll } from './AnimatedContentScroll/AnimatedContentScroll';
+export type { AnimationDirection } from './AnimatedContentScroll/AnimatedContentScroll';
