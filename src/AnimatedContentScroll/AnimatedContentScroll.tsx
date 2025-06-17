@@ -15,7 +15,7 @@ export type Props = {
 export function AnimatedContentScroll({
   children,
   index = 10,
-  direction = "bottom",
+  direction = "right",
   distance = 50,
   duration = 500,
   margin = 5

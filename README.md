@@ -41,7 +41,7 @@ export default function MyScreen() {
 | ----------- | ------------------------------------- | ------------ | -------------------------------------------------------------------------- |
 | `children`  | `ReactNode`                           | **required** | The content to animate.                                                    |
 | `index`     | `number`                              | `10`         | Controls the animation delay based on item position.                       |
-| `direction` | `"left"` `"right"` `"top"` `"bottom"` | `"bottom"`   | Direction the element animates from.                                       |
+| `direction` | `"left"` `"right"` `"top"` `"bottom"` | `"right"`    | Direction the element animates from.                                       |
 | `distance`  | `number`                              | `50`         | How far the content moves during the animation.                            |
 | `duration`  | `number`                              | `500`        | Duration of the animation in milliseconds.                                 |
 | `margin`    | `number`                              | `5`          | Adds horizontal margin to account for movement (used for left/right only). |
