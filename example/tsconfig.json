@@ -1,6 +1,11 @@
 {
-  "extends": "../tsconfig",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    // Avoid expo-cli auto-generating a tsconfig
-  }
+    "baseUrl": "./src",
+    "paths": {
+      "react-native-animated-content-scroll": ["../src/index.tsx"]
+    },
+    "types": ["react", "react-native"]
+  },
+  "include": ["src"]
 }
