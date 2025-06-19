@@ -25,6 +25,7 @@
     "strict": true,
     "target": "ESNext",
     "verbatimModuleSyntax": true,
+    "types": ["react", "react-native"],
     // "target": "es2017",
     // "lib": ["es2017"],
     "allowSyntheticDefaultImports": true,
@@ -40,6 +41,7 @@
   ],
   "exclude": [
     "node_modules",
-    "lib"
+    "lib",
+    // "example"
   ]
 }
