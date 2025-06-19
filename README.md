@@ -2,9 +2,14 @@
 
 A lightweight and smooth animated content scroll component for React Native with directional slide-in animations.
 
+```markdown 
 ## Vista previa
 
-![Demostración](./assets/demostration/Slide-in-right.m.gif)
+<p align="center">
+  <img src="./assets/demo.gif" width="500" />
+</p>
+```
+
 
 ## ✨ Features
 
