@@ -5,7 +5,7 @@ A lightweight and smooth animated content scroll component for React Native with
 ## Vista previa
 
 <p align="center">
-  <img src="./assets/demo.gif" width="500" />
+  <img src="./assets/demostration/Slide-in-right.m.gif" width="500" />
 </p>
 
 
