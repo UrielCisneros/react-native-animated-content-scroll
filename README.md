@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/demostration/banner.jpg" width="400" />
+  <img src="./assets/demostration/banner.jpg" width="800" />
 </p>
 # React Native Animated Content Scroll
 
