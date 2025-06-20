@@ -8,7 +8,7 @@ A lightweight and smooth animated content scroll component for React Native with
 ## Vista previa
 
 <p align="center">
-  <img src="./assets/demostration/demostration-done-gift.gif" width="250" />
+  <img src="./assets/demostration/demostration-done-gift.gif" width="350" />
 </p>
 
 
