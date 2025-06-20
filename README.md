@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="./assets/demostration/banner.jpg" width="400" />
+</p>
 # React Native Animated Content Scroll
 
 A lightweight and smooth animated content scroll component for React Native with directional slide-in animations.
@@ -5,7 +8,7 @@ A lightweight and smooth animated content scroll component for React Native with
 ## Vista previa
 
 <p align="center">
-  <img src="./assets/demostration/demostration-done-gift.gif" width="200" />
+  <img src="./assets/demostration/demostration-done-gift.gif" width="250" />
 </p>
 
 
