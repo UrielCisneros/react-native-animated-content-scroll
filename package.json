@@ -1,6 +1,6 @@
 {
   "name": "react-native-animated-content-scroll",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Animated content scroll component for React Native with directional slide-in animations",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
