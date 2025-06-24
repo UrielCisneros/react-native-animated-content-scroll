@@ -1,32 +1,43 @@
-import { type ReactNode, useEffect, useRef, useState, useCallback } from "react";
-import { Animated, View } from "react-native";
-import type { AnimatedListProps, AnimationDirection, InternalItem, ListItem } from "../types";
+import {
+  type ReactNode,
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+} from 'react';
+import { Animated, FlatList } from 'react-native';
+import type {
+  AnimatedListProps,
+  AnimationDirection,
+  InternalItem,
+  ListItem,
+} from '../types';
 
 export function AnimatedListContainer<T extends ListItem>({
   items,
   renderItem,
-  direction = "right",
+  direction = 'right',
   distance = 50,
   duration = 500,
   margin = 5,
-  keyExtractor = (item) => item.id
+  keyExtractor = (item) => item.id,
 }: AnimatedListProps<T>) {
   const [internalItems, setInternalItems] = useState<InternalItem<T>[]>(
-    items.map(item => ({
+    items.map((item) => ({
       id: keyExtractor(item),
       data: item,
       isExiting: false,
-      hasEntryAnimated: false
+      hasEntryAnimated: false,
     }))
   );
 
   // Detectar cambios en los items
   useEffect(() => {
     const currentIds = items.map(keyExtractor);
-    
-    setInternalItems(prevInternal => {
+
+    setInternalItems((prevInternal) => {
       let hasChanges = false;
-      const newInternal = prevInternal.map(internalItem => {
+      const newInternal = prevInternal.map((internalItem) => {
         // Marcar items que ya no están en la lista como "saliendo"
         if (!currentIds.includes(internalItem.id) && !internalItem.isExiting) {
           hasChanges = true;
@@ -34,60 +45,64 @@ export function AnimatedListContainer<T extends ListItem>({
         }
         return internalItem;
       });
-      
+
       // Agregar nuevos items
-      items.forEach(item => {
+      items.forEach((item) => {
         const itemId = keyExtractor(item);
-        const existingIndex = newInternal.findIndex(internal => internal.id === itemId);
-        
+        const existingIndex = newInternal.findIndex(
+          (internal) => internal.id === itemId
+        );
+
         if (existingIndex === -1) {
           hasChanges = true;
           newInternal.push({
             id: itemId,
             data: item,
             isExiting: false,
-            hasEntryAnimated: false
+            hasEntryAnimated: false,
           });
         } else if (existingIndex >= 0) {
           // Actualizar datos del item existente (por si cambió algo)
           const existing = newInternal[existingIndex];
-          if (existing && JSON.stringify(existing.data) !== JSON.stringify(item)) {
+          if (
+            existing &&
+            JSON.stringify(existing.data) !== JSON.stringify(item)
+          ) {
             hasChanges = true;
             newInternal[existingIndex] = {
               id: existing.id,
               data: item,
               isExiting: existing.isExiting,
-              hasEntryAnimated: existing.hasEntryAnimated
+              hasEntryAnimated: existing.hasEntryAnimated,
             };
           }
         }
       });
-      
+
       // Solo retornar nuevo array si hubo cambios
       return hasChanges ? newInternal : prevInternal;
     });
   }, [items, keyExtractor]);
 
   const handleExitComplete = useCallback((itemId: string | number) => {
-    setInternalItems(prev => prev.filter(item => item.id !== itemId));
+    setInternalItems((prev) => prev.filter((item) => item.id !== itemId));
   }, []);
 
   const handleEntryAnimated = useCallback((itemId: string | number) => {
-    setInternalItems(prev => 
-      prev.map(item => 
-        item.id === itemId 
-          ? { ...item, hasEntryAnimated: true }
-          : item
+    setInternalItems((prev) =>
+      prev.map((item) =>
+        item.id === itemId ? { ...item, hasEntryAnimated: true } : item
       )
     );
   }, []);
 
   return (
-    <View>
-      {internalItems.map((internalItem, index) => (
+    <FlatList
+      data={internalItems}
+      keyExtractor={(item) => item.id.toString()}
+      renderItem={({ item, index }) => (
         <AnimatedItem
-          key={internalItem.id}
-          item={internalItem}
+          item={item}
           index={index}
           direction={direction}
           distance={distance}
@@ -97,8 +112,8 @@ export function AnimatedListContainer<T extends ListItem>({
           onEntryAnimated={handleEntryAnimated}
           renderItem={renderItem}
         />
-      ))}
-    </View>
+      )}
+    />
   );
 }
 
@@ -124,7 +139,7 @@ function AnimatedItem<T extends ListItem>({
   margin,
   onExitComplete,
   onEntryAnimated,
-  renderItem
+  renderItem,
 }: AnimatedItemProps<T>) {
   const opacity = useRef(new Animated.Value(0)).current;
   const translateX = useRef(new Animated.Value(0)).current;
@@ -169,10 +184,22 @@ function AnimatedItem<T extends ListItem>({
         animation.stop();
       };
     }
-    
+
     // Retornar función vacía si no se ejecuta la animación
     return () => {};
-  }, [item.hasEntryAnimated, item.isExiting, opacity, translateX, translateY, direction, distance, duration, index, item.id, onEntryAnimated]);
+  }, [
+    item.hasEntryAnimated,
+    item.isExiting,
+    opacity,
+    translateX,
+    translateY,
+    direction,
+    distance,
+    duration,
+    index,
+    item.id,
+    onEntryAnimated,
+  ]);
 
   // Animación de salida
   useEffect(() => {
@@ -200,20 +227,23 @@ function AnimatedItem<T extends ListItem>({
         exitAnimation.stop();
       };
     }
-    
+
     // Retornar función vacía si no se ejecuta la animación
     return () => {};
   }, [item.isExiting, opacity, translateX, duration, item.id, onExitComplete]);
 
   // Calcular márgenes
-  const getContainerMargins = (direction: AnimationDirection, margin: number) => {
+  const getContainerMargins = (
+    direction: AnimationDirection,
+    margin: number
+  ) => {
     switch (direction) {
-      case "left":
+      case 'left':
         return { marginLeft: margin };
-      case "right":
+      case 'right':
         return { marginRight: margin };
-      case "top":
-      case "bottom":
+      case 'top':
+      case 'bottom':
         return {};
       default:
         return {};
@@ -225,17 +255,14 @@ function AnimatedItem<T extends ListItem>({
       style={{
         overflow: 'visible',
         position: 'relative',
-        ...getContainerMargins(direction, margin)
+        ...getContainerMargins(direction, margin),
       }}
     >
       <Animated.View
         style={{
           opacity,
           position: 'relative',
-          transform: [
-            { translateX },
-            { translateY }
-          ]
+          transform: [{ translateX }, { translateY }],
         }}
       >
         {renderItem(item.data, index)}
@@ -247,13 +274,13 @@ function AnimatedItem<T extends ListItem>({
 // Función auxiliar para obtener valores iniciales según la dirección
 function getInitialValues(direction: AnimationDirection, distance: number) {
   switch (direction) {
-    case "left":
+    case 'left':
       return { x: -distance, y: 0 };
-    case "right":
+    case 'right':
       return { x: distance, y: 0 };
-    case "top":
+    case 'top':
       return { x: 0, y: -distance };
-    case "bottom":
+    case 'bottom':
       return { x: 0, y: distance };
     default:
       return { x: 0, y: 0 };
