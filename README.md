@@ -9,10 +9,13 @@ A lightweight and smooth animated content scroll component for React Native with
 ## Example 
 
 <p align="center">
-  <img src="./assets/demostration/demostration-done-gift.gif" width="350" />
-  <img src="./assets/demostration/demostration-done-gift.gif" width="350" />
+  <img src="./assets/demostration/Animated-container-scroll.gif" width="350" />
+  <img src="./assets/demostration/List-animated-content.gif" width="350" />
 </p>
 
+<p align="center">
+  <sub>Left: AnimatedContentScroll • Right: AnimatedListContainer</sub>
+</p>
 
 
 ## ✨ Features
@@ -59,6 +62,13 @@ export default function MyScreen() {
 | `distance`  | `number`                              | `50`         | How far the content moves during the animation.                            |
 | `duration`  | `number`                              | `500`        | Duration of the animation in milliseconds.                                 |
 | `margin`    | `number`                              | `5`          | Adds horizontal margin to account for movement (used for left/right only). |
+
+
+## Example AnimatedContentScroll
+
+<p align="center">
+  <img src="./assets/demostration/Animated-container-scroll.gif" width="350" />
+</p>
 
 
 
@@ -109,6 +119,7 @@ export default function BasicAnimatedList() {
 }
 
 ```
+
 ## ⚙️ Props AnimatedListContainer
 
 | Prop           | Type                                    | Default           | Description                                                       |
@@ -120,6 +131,13 @@ export default function BasicAnimatedList() {
 | `duration`     | `number`                                | `500`             | Animation duration in milliseconds.                               |
 | `margin`       | `number`                                | `5`               | Optional horizontal margin (used for left/right animations only). |
 | `keyExtractor` | `(item: T) => string \| number`         | `item => item.id` | Unique identifier extractor for list items.                       |
+
+
+## Example AnimatedListContainer
+
+<p align="center">
+  <img src="./assets/demostration/List-animated-content.gif" width="350" />
+</p>
 
 ## 🔁 Dynamic Behavior
 
