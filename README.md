@@ -1,13 +1,15 @@
+<h1 align="center">React Native Animated Content Scroll</h1>
+
 <p align="center">
   <img src="./assets/demostration/banner.jpg" width="800" />
 </p>
-# React Native Animated Content Scroll
 
 A lightweight and smooth animated content scroll component for React Native with directional slide-in animations.
 
-## Vista previa
+## Example 
 
 <p align="center">
+  <img src="./assets/demostration/demostration-done-gift.gif" width="350" />
   <img src="./assets/demostration/demostration-done-gift.gif" width="350" />
 </p>
 
@@ -28,6 +30,7 @@ npm install react-native-animated-content-scroll
 ```
 
 ## 🚀 Usage
+A simple animated wrapper for static or scrollable lists with directional animations.
 
 ## Basic Usage
 ```ts 
@@ -46,7 +49,7 @@ export default function MyScreen() {
 }
 ```
 
-## ⚙️ Props
+## ⚙️ Props AnimatedContentScroll
 
 | Prop        | Type                                  | Default      | Description                                                                |
 | ----------- | ------------------------------------- | ------------ | -------------------------------------------------------------------------- |
@@ -57,48 +60,73 @@ export default function MyScreen() {
 | `duration`  | `number`                              | `500`        | Duration of the animation in milliseconds.                                 |
 | `margin`    | `number`                              | `5`          | Adds horizontal margin to account for movement (used for left/right only). |
 
-## 💡 Advanced Examples
 
-## Staggered List Animation
+
+## 🧩 AnimatedListContainer
+A more advanced list animation component that supports dynamic enter/exit animations when the data array changes.
 
 ```ts 
-import { AnimatedContentScroll } from 'react-native-animated-content-scroll';
+import React, { useState } from 'react';
+import { View, Text, Button } from 'react-native';
+import { AnimatedListContainer } from 'react-native-animated-content-scroll';
 
-function MyList() {
-  const items = ['Item 1', 'Item 2', 'Item 3'];
-  
+export default function BasicAnimatedList() {
+  const [items, setItems] = useState([
+    { id: 1, label: "Item One" },
+    { id: 2, label: "Item Two" },
+    { id: 3, label: "Item Three" },
+    { id: 4, label: "Item Four" },
+    { id: 5, label: "Item Five" },
+    { id: 6, label: "Item Six" },
+  ]);
+
+  const removeLastItem = () => {
+    setItems((prev) => prev.slice(0, -1));
+  };
+
   return (
-    <View>
-      {items.map((item, index) => (
-        <AnimatedContentScroll 
-          key={index}
-          direction="left" 
-          index={index}
-          duration={600}
-        >
-          <Text>{item}</Text>
-        </AnimatedContentScroll>
-      ))}
+    <View style={{ padding: 20, flex: 1, justifyContent: "center" }}>
+      <Button title="Remove Last Item" onPress={removeLastItem} />
+      <AnimatedListContainer
+        items={items}
+        direction="right"
+        renderItem={(item) => (
+          <View
+            style={{
+              backgroundColor: "#f2f2f2",
+              padding: 12,
+              marginVertical: 6,
+              borderRadius: 8,
+              alignItems: "center",
+            }}
+          >
+            <Text>{item.label}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
-```
 
-## Advanced Usage
-
-```ts 
-<AnimatedContentScroll 
-  direction="top" 
-  distance={100}
-  duration={800}
-  margin={10}
-  index={0}
->
-  <Card>
-    <Text>Custom animated card</Text>
-  </Card>
-</AnimatedContentScroll>
 ```
+## ⚙️ Props AnimatedListContainer
+
+| Prop           | Type                                    | Default           | Description                                                       |
+| -------------- | --------------------------------------- | ----------------- | ----------------------------------------------------------------- |
+| `items`        | `T[]`                                   | **required**      | The list of items to render.                                      |
+| `renderItem`   | `(item: T, index: number) => ReactNode` | **required**      | Render function for each item.                                    |
+| `direction`    | `"left"` `"right"` `"top"` `"bottom"`   | `"right"`         | Direction from which items animate in.                            |
+| `distance`     | `number`                                | `50`              | Distance items move during animation.                             |
+| `duration`     | `number`                                | `500`             | Animation duration in milliseconds.                               |
+| `margin`       | `number`                                | `5`               | Optional horizontal margin (used for left/right animations only). |
+| `keyExtractor` | `(item: T) => string \| number`         | `item => item.id` | Unique identifier extractor for list items.                       |
+
+## 🔁 Dynamic Behavior
+
+- When items are added, they animate in.
+- When items are removed, they animate out to the right.
+- Internally handles animation lifecycle and cleanup.
+
 ## 🛠️ How It Works
 
 - Uses React Native's `Animated.Value` to control `opacity`, `translateX`, and `translateY`.

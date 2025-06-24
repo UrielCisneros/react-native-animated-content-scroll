@@ -1,16 +1,7 @@
-import { type ReactNode, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Animated } from "react-native";
+import type { AnimationDirection, PropsAnimatedScrollContent } from "../types";
 
-export type AnimationDirection = "left" | "right" | "top" | "bottom";
-
-export type Props = {
-  children: ReactNode;
-  index?: number;
-  direction?: AnimationDirection;
-  distance?: number;
-  duration?: number;
-  margin?: number;
-};
 
 export function AnimatedContentScroll({
   children,
@@ -19,7 +10,7 @@ export function AnimatedContentScroll({
   distance = 50,
   duration = 500,
   margin = 5
-}: Props) {
+}: PropsAnimatedScrollContent) {
   const opacity = useRef(new Animated.Value(0)).current;
   const translateX = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(0)).current;
