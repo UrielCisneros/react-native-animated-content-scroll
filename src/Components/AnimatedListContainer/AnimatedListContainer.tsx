@@ -27,7 +27,6 @@ export function AnimatedListContainer<T extends ListItem>({
       id: keyExtractor(item),
       data: item,
       isExiting: false,
-      hasEntryAnimated: false,
     }))
   );
 
@@ -59,7 +58,6 @@ export function AnimatedListContainer<T extends ListItem>({
             id: itemId,
             data: item,
             isExiting: false,
-            hasEntryAnimated: false,
           });
         } else if (existingIndex >= 0) {
           // Actualizar datos del item existente (por si cambió algo)
@@ -73,7 +71,6 @@ export function AnimatedListContainer<T extends ListItem>({
               id: existing.id,
               data: item,
               isExiting: existing.isExiting,
-              hasEntryAnimated: existing.hasEntryAnimated,
             };
           }
         }
@@ -86,14 +83,6 @@ export function AnimatedListContainer<T extends ListItem>({
 
   const handleExitComplete = useCallback((itemId: string | number) => {
     setInternalItems((prev) => prev.filter((item) => item.id !== itemId));
-  }, []);
-
-  const handleEntryAnimated = useCallback((itemId: string | number) => {
-    setInternalItems((prev) =>
-      prev.map((item) =>
-        item.id === itemId ? { ...item, hasEntryAnimated: true } : item
-      )
-    );
   }, []);
 
   return (
@@ -109,7 +98,6 @@ export function AnimatedListContainer<T extends ListItem>({
           duration={duration}
           margin={margin}
           onExitComplete={handleExitComplete}
-          onEntryAnimated={handleEntryAnimated}
           renderItem={renderItem}
         />
       )}
@@ -126,7 +114,6 @@ interface AnimatedItemProps<T extends ListItem> {
   duration: number;
   margin: number;
   onExitComplete: (itemId: string | number) => void;
-  onEntryAnimated: (itemId: string | number) => void;
   renderItem: (item: T, index: number) => ReactNode;
 }
 
@@ -138,16 +125,16 @@ function AnimatedItem<T extends ListItem>({
   duration,
   margin,
   onExitComplete,
-  onEntryAnimated,
   renderItem,
 }: AnimatedItemProps<T>) {
   const opacity = useRef(new Animated.Value(0)).current;
   const translateX = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(0)).current;
+  const hasEntryAnimated = useRef(false);
 
   // Animación de entrada
   useEffect(() => {
-    if (!item.hasEntryAnimated && !item.isExiting) {
+    if (!hasEntryAnimated.current && !item.isExiting) {
       // Configurar valores iniciales
       const initialValues = getInitialValues(direction, distance);
       translateX.setValue(initialValues.x);
@@ -177,7 +164,7 @@ function AnimatedItem<T extends ListItem>({
       ]);
 
       animation.start(() => {
-        onEntryAnimated(item.id);
+        hasEntryAnimated.current = true;
       });
 
       return () => {
@@ -188,7 +175,6 @@ function AnimatedItem<T extends ListItem>({
     // Retornar función vacía si no se ejecuta la animación
     return () => {};
   }, [
-    item.hasEntryAnimated,
     item.isExiting,
     opacity,
     translateX,
@@ -197,8 +183,6 @@ function AnimatedItem<T extends ListItem>({
     distance,
     duration,
     index,
-    item.id,
-    onEntryAnimated,
   ]);
 
   // Animación de salida

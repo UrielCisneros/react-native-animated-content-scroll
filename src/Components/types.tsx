@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react';
 
 //<<<<<<<<<<<< Animated Container Scroll >>>>>>>>>>>>>>
 
-export type AnimationDirection = "left" | "right" | "top" | "bottom";
+export type AnimationDirection = 'left' | 'right' | 'top' | 'bottom';
 
 export type PropsAnimatedScrollContent = {
   children: ReactNode;
@@ -33,5 +33,4 @@ export type AnimatedListProps<T extends ListItem> = {
 export interface InternalItem<T> extends ListItem {
   data: T;
   isExiting: boolean;
-  hasEntryAnimated: boolean;
 }
